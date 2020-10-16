@@ -5,16 +5,19 @@
 #include <GLFW/glfw3.h>
 #include "Shader.h"
 #include "stb_image.h"
+#include <glm.hpp>
+#include <gtc/matrix_transform.hpp>
+#include <gtc/type_ptr.hpp>
 
 
 
 
 GLfloat vertices[] = {
 	//     ---- 位置 ----       ---- 颜色 ----     - 纹理坐标 -
-		 0.5f,  0.75f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // 右上
-		 0.5f, -0.75f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // 右下
-		-0.5f, -0.75f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // 左下
-		-0.5f,  0.75f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // 左上
+		 0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // 右上
+		 0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // 右下
+		-0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // 左下
+		-0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // 左上
 };
 
 unsigned int indices[] = {
@@ -36,7 +39,7 @@ int main() //主函数部分
 	GLFWwindow* window = glfwCreateWindow(1920, 1080, "My OpenGL", NULL, NULL);  //创建一个800*600的窗口
 	if (window == NULL)  //窗口创建失败的返回值
 	{
-		printf("Open Window Failed.");
+		std::cout << "Open Window Failed." << std::endl;
 		glfwTerminate();
 		return -1;
 	}
@@ -46,7 +49,7 @@ int main() //主函数部分
 	glewExperimental = true;  //初始化GLEW库
 	if (glewInit() != GLEW_OK)  //初始化失败返回值
 	{
-		printf("Init GLEW Failed.");
+		std::cout << "Init GLEW Failed." << std::endl;
 		glfwTerminate();
 		return -1;
 	}
@@ -90,8 +93,6 @@ int main() //主函数部分
 	glGenTextures(1, &TexBufferA);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, TexBufferA);
-	
-
 	int image_width, image_height, image_nrChannel;
 	stbi_set_flip_vertically_on_load(true); //颠倒图像
 	unsigned char* data = stbi_load("container.adm", &image_width, &image_height, &image_nrChannel, 0);
@@ -123,10 +124,17 @@ int main() //主函数部分
 	}
 	stbi_image_free(data2);
 
-	
+	//坐标变换
+	//glm::mat4 trans;
+	//trans = glm::translate(trans, glm::vec3(-1.0f, 0, 0)); //位移
+	//trans = glm::rotate(trans, glm::radians(45.0f), glm::vec3(0, 0, 1.0f)); //旋转
+	//trans = glm::scale(trans, glm::vec3(1.5f, 1.5f, 2.0f)); //缩放
 
 	while (!glfwWindowShouldClose(window))  //渲染(死)循环 检查是否已指示关闭GLFW
 	{
+		glm::mat4 trans;
+		trans = glm::rotate(trans, (float)glfwGetTime(), glm::vec3(0, 0, 0.5f)); //随时间旋转
+
 		processInput(window);  //检查输入
 		
 		glClearColor(1.0f, 1.0f, 0, 1.0f);  //设置背景颜色（R，G，B，Alpha）
@@ -142,7 +150,11 @@ int main() //主函数部分
 		testShader->use(); //激活着色器
 		glUniform1i(glGetUniformLocation(testShader->ID, "ourTexture"), 0);
 		glUniform1i(glGetUniformLocation(testShader->ID, "ourFace"), 3);
+		glUniformMatrix4fv(glGetUniformLocation(testShader->ID, "transform"), 1, GL_FALSE, glm::value_ptr(trans));
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
+		
+		
 
 		glfwSwapBuffers(window);  //缓冲区渲染并输出到屏幕
 		glfwPollEvents();  //检查是否触发了事件
