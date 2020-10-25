@@ -8,6 +8,7 @@
 #include <glm.hpp>
 #include <gtc/matrix_transform.hpp>
 #include <gtc/type_ptr.hpp>
+#include "Camera.h"
 
 
 
@@ -187,13 +188,19 @@ int main() //主函数部分
 	//trans = glm::rotate(trans, glm::radians(45.0f), glm::vec3(0, 0, 1.0f)); //旋转
 	//trans = glm::scale(trans, glm::vec3(1.5f, 1.5f, 2.0f)); //缩放
 
+	//
+	Camera camera(glm::vec3(0,0,3.0f), glm::vec3(0,0,0), glm::vec3(0,1.0f,0));
+
+	
+	
 	//创建一个模型矩阵
 	glm::mat4 modelMat;
 	//模型矩阵的位移、缩放和旋转操作
 	modelMat = glm::rotate(modelMat, glm::radians(-20.0f), glm::vec3(1.0f, 1.0f, 1.0f));
 	//创建一个观察矩阵
 	glm::mat4 viewMat;
-	viewMat = glm::translate(viewMat, glm::vec3(0, 0, -3.0f));
+	//viewMat = glm::translate(viewMat, glm::vec3(0, 0, -3.0f));
+	viewMat = camera.GetViewMatrix();
 	//创建一个投影矩阵
 	glm::mat4 projMat;
 	projMat = glm::perspective(glm::radians(45.0f), 1920.0f / 1080.0f, 0.1f, 100.0f);

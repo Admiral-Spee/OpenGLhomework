@@ -36,8 +36,8 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath)
 		vertexSource = vertexString.c_str();
 		fragmentSource = fragmentString.c_str();
 
-		printf(vertexSource);
-		printf(fragmentSource);
+		//printf(vertexSource);
+		//printf(fragmentSource);
 
 		unsigned int vertex, fragment;
 
