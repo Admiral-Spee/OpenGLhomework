@@ -12,12 +12,56 @@
 
 
 
-GLfloat vertices[] = {
-	//     ---- 位置 ----       ---- 颜色 ----     - 纹理坐标 -
-		 0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // 右上
-		 0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // 右下
-		-0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // 左下
-		-0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // 左上
+//GLfloat vertices[] = {
+//	//     ---- 位置 ----       ---- 颜色 ----     - 纹理坐标 -
+//		 0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // 右上
+//		 0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // 右下
+//		-0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // 左下
+//		-0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // 左上
+//};
+
+float vertices[] = {
+	-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+	 0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
+	 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+	 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+	-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+	-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+
+	-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+	 0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+	 0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+	 0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+	-0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
+	-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+
+	-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+	-0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+	-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+	-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+	-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+	-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+	 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+	 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+	 0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+	 0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+	 0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+	 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+	-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+	 0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
+	 0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+	 0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+	-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+	-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+
+	-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+	 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+	 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+	 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+	-0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
+	-0.5f,  0.5f, -0.5f,  0.0f, 1.0f
 };
 
 unsigned int indices[] = {
@@ -25,6 +69,18 @@ unsigned int indices[] = {
 	2, 3, 0
 };
 
+glm::vec3 cubePositions[] = {
+  glm::vec3( 0.0f,  0.0f, -4.0f),
+  glm::vec3( 2.0f,  0.0f, -4.0f),
+  glm::vec3(-2.0f,  0.0f, -4.0f),
+  glm::vec3( 0.0f,  2.0f, -4.0f),
+  glm::vec3( 2.0f,  2.0f, -4.0f),
+  glm::vec3(-2.0f,  2.0f, -4.0f),
+  glm::vec3( 0.0f, -2.0f, -4.0f),
+  glm::vec3( 2.0f, -2.0f, -4.0f),
+  glm::vec3(-2.0f, -2.0f, -4.0f),
+  glm::vec3( 0.0f,  4.0f, -4.0f)
+};
 
 void processInput(GLFWwindow* window);
 
@@ -60,6 +116,7 @@ int main() //主函数部分
 	glViewport(0, 0, width, height);  //告知OpenGL渲染窗口大小
 	//glEnable(GL_CULL_FACE);  //剔除背面
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);  //线框渲染
+	glEnable(GL_DEPTH_TEST);
 
 	Shader* testShader = new Shader("vertexSource.adm", "fragmentSource.adm");
 
@@ -79,13 +136,13 @@ int main() //主函数部分
 
 
 	//位置属性
-	glVertexAttribPointer(6, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
+	glVertexAttribPointer(6, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(6);
 	//颜色属性
-	glVertexAttribPointer(7, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)) );
-	glEnableVertexAttribArray(7);
+	//glVertexAttribPointer(7, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)) );
+	//glEnableVertexAttribArray(7);
 	//贴图属性
-	glVertexAttribPointer(8, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+	glVertexAttribPointer(8, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
 	glEnableVertexAttribArray(8);
 
 	//生成纹理A
@@ -124,21 +181,32 @@ int main() //主函数部分
 	}
 	stbi_image_free(data2);
 
-	//坐标变换
+	//坐标变换矩阵
 	//glm::mat4 trans;
 	//trans = glm::translate(trans, glm::vec3(-1.0f, 0, 0)); //位移
 	//trans = glm::rotate(trans, glm::radians(45.0f), glm::vec3(0, 0, 1.0f)); //旋转
 	//trans = glm::scale(trans, glm::vec3(1.5f, 1.5f, 2.0f)); //缩放
 
+	//创建一个模型矩阵
+	glm::mat4 modelMat;
+	//模型矩阵的位移、缩放和旋转操作
+	modelMat = glm::rotate(modelMat, glm::radians(-20.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+	//创建一个观察矩阵
+	glm::mat4 viewMat;
+	viewMat = glm::translate(viewMat, glm::vec3(0, 0, -3.0f));
+	//创建一个投影矩阵
+	glm::mat4 projMat;
+	projMat = glm::perspective(glm::radians(45.0f), 1920.0f / 1080.0f, 0.1f, 100.0f);
+
+
 	while (!glfwWindowShouldClose(window))  //渲染(死)循环 检查是否已指示关闭GLFW
 	{
-		glm::mat4 trans;
-		trans = glm::rotate(trans, (float)glfwGetTime(), glm::vec3(0, 0, 0.5f)); //随时间旋转
+		
 
 		processInput(window);  //检查输入
 		
 		glClearColor(1.0f, 1.0f, 0, 1.0f);  //设置背景颜色（R，G，B，Alpha）
-		glClear(GL_COLOR_BUFFER_BIT);  //清除缓冲区为指定颜色
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);  //清除缓冲区为指定颜色
 
 		glActiveTexture(GL_TEXTURE0); //激活纹理单元
 		glBindTexture(GL_TEXTURE_2D, TexBufferA); //绑定纹理
@@ -147,11 +215,28 @@ int main() //主函数部分
 		glBindVertexArray(VAO);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 
-		testShader->use(); //激活着色器
-		glUniform1i(glGetUniformLocation(testShader->ID, "ourTexture"), 0);
-		glUniform1i(glGetUniformLocation(testShader->ID, "ourFace"), 3);
-		glUniformMatrix4fv(glGetUniformLocation(testShader->ID, "transform"), 1, GL_FALSE, glm::value_ptr(trans));
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		
+
+		for (int i = 0; i < 10; i++) {
+			glm::mat4 modelMat2;
+			modelMat2 = glm::translate(modelMat2, cubePositions[i]);
+
+			testShader->use(); //激活着色器
+			glUniform1i(glGetUniformLocation(testShader->ID, "ourTexture"), 0);
+			glUniform1i(glGetUniformLocation(testShader->ID, "ourFace"), 3);
+
+			//从shader文件中抓取
+			//glUniformMatrix4fv(glGetUniformLocation(testShader->ID, "transform"), 1, GL_FALSE, glm::value_ptr(trans));
+			glUniformMatrix4fv(glGetUniformLocation(testShader->ID, "modelMat"), 1, GL_FALSE, glm::value_ptr(modelMat2));
+			glUniformMatrix4fv(glGetUniformLocation(testShader->ID, "viewMat"), 1, GL_FALSE, glm::value_ptr(viewMat));
+			glUniformMatrix4fv(glGetUniformLocation(testShader->ID, "projMat"), 1, GL_FALSE, glm::value_ptr(projMat));
+
+			//图形绘制
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+			//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		}
+
+		
 
 		
 		
