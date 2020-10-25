@@ -197,11 +197,6 @@ int main() //主函数部分
 	//trans = glm::rotate(trans, glm::radians(45.0f), glm::vec3(0, 0, 1.0f)); //旋转
 	//trans = glm::scale(trans, glm::vec3(1.5f, 1.5f, 2.0f)); //缩放
 
-	
-	
-
-	
-	
 	//创建一个模型矩阵
 	glm::mat4 modelMat;
 	//模型矩阵的位移、缩放和旋转操作
