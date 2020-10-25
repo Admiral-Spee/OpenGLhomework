@@ -83,7 +83,14 @@ glm::vec3 cubePositions[] = {
   glm::vec3( 0.0f,  4.0f, -4.0f)
 };
 
+float lastX, lastY;
+bool firstMouse = true;
+
+//
+//Camera camera(glm::vec3(0,0,3.0f), glm::vec3(0,0,0), glm::vec3(0,1.0f,0));
+Camera camera(glm::vec3(0, 0, 3.0f), glm::radians(0.0f), glm::radians(-130.0f), glm::vec3(0, 1.0f, 0));
 void processInput(GLFWwindow* window);
+void mouse_callback(GLFWwindow* window, double xPos, double yPos);
 
 int main() //主函数部分
 {
@@ -101,6 +108,8 @@ int main() //主函数部分
 		return -1;
 	}
 	glfwMakeContextCurrent(window);
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	glfwSetCursorPosCallback(window, mouse_callback);
 
 
 	glewExperimental = true;  //初始化GLEW库
@@ -188,8 +197,8 @@ int main() //主函数部分
 	//trans = glm::rotate(trans, glm::radians(45.0f), glm::vec3(0, 0, 1.0f)); //旋转
 	//trans = glm::scale(trans, glm::vec3(1.5f, 1.5f, 2.0f)); //缩放
 
-	//
-	Camera camera(glm::vec3(0,0,3.0f), glm::vec3(0,0,0), glm::vec3(0,1.0f,0));
+	
+	
 
 	
 	
@@ -200,7 +209,7 @@ int main() //主函数部分
 	//创建一个观察矩阵
 	glm::mat4 viewMat;
 	//viewMat = glm::translate(viewMat, glm::vec3(0, 0, -3.0f));
-	viewMat = camera.GetViewMatrix();
+	//viewMat = camera.GetViewMatrix();
 	//创建一个投影矩阵
 	glm::mat4 projMat;
 	projMat = glm::perspective(glm::radians(45.0f), 1920.0f / 1080.0f, 0.1f, 100.0f);
@@ -222,7 +231,7 @@ int main() //主函数部分
 		glBindVertexArray(VAO);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 
-		
+		viewMat = camera.GetViewMatrix();
 
 		for (int i = 0; i < 10; i++) {
 			glm::mat4 modelMat2;
@@ -250,7 +259,7 @@ int main() //主函数部分
 
 		glfwSwapBuffers(window);  //缓冲区渲染并输出到屏幕
 		glfwPollEvents();  //检查是否触发了事件
-		
+		camera.UpdateCameraPos();
 	}
 
 	glfwTerminate();  //清理GLFW资源
@@ -263,4 +272,48 @@ void processInput(GLFWwindow* window)  //检查输入项
 	{
 		glfwSetWindowShouldClose(window, true);
 	}
+
+	else if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+	{
+		camera.speedZ = 1.0f;
+	}
+
+	else if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+	{
+		camera.speedZ = -1.0f;
+	}
+
+	else if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+	{
+		camera.speedX = -1.0f;
+	}
+
+	else if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+	{
+		camera.speedX = 1.0f;
+	}
+
+	else
+	{
+		camera.speedZ = 0;
+		camera.speedX = 0;
+	}
+}
+
+void mouse_callback(GLFWwindow* window, double xPos, double yPos)
+{
+	if (firstMouse == true) {
+		lastX = xPos;
+		lastY = yPos;
+		firstMouse = false;
+	}
+	float deltaX, deltaY;
+	deltaX = xPos - lastX;
+	deltaY = lastY - yPos;
+	
+	lastX = xPos;
+	lastY = yPos;
+
+	camera.ProcessMouseMovement(deltaX, deltaY);
+	
 }
