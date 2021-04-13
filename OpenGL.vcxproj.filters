@@ -37,8 +37,8 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="fragmentSource.adm" />
-    <Text Include="vertexSource.adm" />
+    <Text Include="fragmentSource.frag" />
+    <Text Include="vertexSource.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="wall.jpg">
